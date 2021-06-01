@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sign-Up/Login Form</title>
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/style2.css">
+      <link rel="stylesheet" href="css/component.css">
+      <link rel="stylesheet" href="css/demo.css">
+      <link rel="stylesheet" href="css/normalize.css">
+
+      
+
+  
+</head>
+
+<body >
+  <div class="form">
+      
+      <ul class="tab-group">
+        <li class="tab active"><a href="#signup">Registro</a></li>
+        <li class="tab"><a href="#login">Inicio de sesión</a></li>
+      </ul>
+      
+      <div class="tab-content">
+        <div id="signup">   
+          <h1>Registro</h1>
+          
+          <form>
+          
+          
+          <div class="field-wrap">
+            <label>
+              Nombre<span class="req">*</span>
+            </label>
+            <input type="text" id="nombre" required autocomplete="on" />
+          </div>
+      
+          <div class="field-wrap">
+            <label>
+              Apellido<span class="req">*</span>
+            </label>
+            <input type="text" id="apellido" required autocomplete="on"/>
+          </div>
+          
+
+          <div class="field-wrap">
+            <label>
+              Número de casa<span class="req">*</span>
+            </label>
+            <input type="number" id="numCasa" required autocomplete="on"/>
+          </div>
+        
+
+          <div class="field-wrap">
+            <label>
+            Correo electrónico<span class="req">*</span>
+            </label>
+            <input type="email" id="email" required autocomplete="on"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Contraseña<span class="req">*</span>
+            </label>
+            <input type="password" id="password" required = "on" autocomplete="off"/>
+          </div>
+          
+          <button type="submit" id="registerbtn" class="button button-block">Registarse</button>
+          
+          </form>
+
+        </div>
+        
+        <div id="login">   
+          <h1>Bienvenido</h1>
+          
+          <form>
+          
+            <div class="field-wrap">
+            <label>
+              Correo electrónico<span class="req">*</span>
+            </label>
+            <input type="email" id="email_log" required autocomplete="on"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Contraseña<span class="req">*</span>
+            </label>
+            <input type="password" id = "pass_log" required="on" autocomplete="off"/>
+          </div>
+          
+
+          
+          <button type="submit" id="loginbtn" class="button button-block">Log In</button>
+          
+          </form>
+
+        </div>
+        
+      </div>
+      
+</div> 
+  <script src='js/jquery.js'></script>
+  <script src="js/index.js"></script>
+  <script src="js/classie.js"></script>
+  <script src="js/clipboard.min.js"></script>
+  <script src="js/modernizr.custom.js"></script>
+
+</body>
+</html>
