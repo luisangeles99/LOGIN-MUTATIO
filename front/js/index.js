@@ -1,24 +1,24 @@
 //registro
-/*
+
 $('#registerbtn').on('click', function(){
   let nombre = $('#nombre').val()
   let apellido = $('#apellido').val()
-  let edad = $('#edad').val()
+  let casa = $('#numCasa').val()
   let email = $('#email').val()
   let password = $('#password').val()
 
   json_to_send = {
-    "Nombre": nombre,
-    "age": edad,
-    "Apellido": apellido,
-    "email": email,
+    "nombre": nombre,
+    "casa": casa,
+    "apellido": apellido,
+    "correo": email,
     "password" : password
   };
 
   json_to_send = JSON.stringify(json_to_send);
 
   $.ajax({
-    url: 'https://proyecto-a01273884.herokuapp.com/users',
+    url: '',
     headers: {
         'Content-Type':'application/json'
     },
@@ -36,6 +36,7 @@ $('#registerbtn').on('click', function(){
   });
 })
 
+/*
 //login
 $('#loginbtn').on('click', function(){
   let email = $('#email_log').val()
