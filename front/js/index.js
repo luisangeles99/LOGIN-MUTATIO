@@ -1,6 +1,14 @@
+// Validación en front
+
+
+
+
 //registro
 
 $('#registerbtn').on('click', function(){
+
+  return
+
   let nombre = $('#nombre').val()
   let apellido = $('#apellido').val()
   let casa = $('#numCasa').val()
@@ -18,7 +26,7 @@ $('#registerbtn').on('click', function(){
   json_to_send = JSON.stringify(json_to_send);
 
   $.ajax({
-    url: '',
+    url: 'http://localhost:3001/register',
     headers: {
         'Content-Type':'application/json'
     },
@@ -28,13 +36,17 @@ $('#registerbtn').on('click', function(){
     success: function(data){
       alert("Usuario creado con exito");
       console.log('success: '+ data);
-      window.location = './index.html'
+      window.setTimeout(function(){
+        // Move to a new location or you can do something else
+        window.location.href = './index.html';
+    }, 5000);
     },
     error: function(error_msg) {
-      alert((error_msg['responseText']));
+      console.log(error_msg.responseJSON['Error'])
+      alert((error_msg.responseJSON['Error']));
     }
   });
-})
+});
 
 /*
 //login
@@ -43,14 +55,14 @@ $('#loginbtn').on('click', function(){
   let password = $('#pass_log').val()
 
   json_to_send = {
-    "email": email,
+    "correo": email,
     "password" : password
   };
 
   json_to_send = JSON.stringify(json_to_send)
   console.log(json_to_send)
   $.ajax({
-    url: 'https://proyecto-a01273884.herokuapp.com/login',
+    url: 'http://localhost:3001/login',
     headers: {
         'Content-Type':'application/json'
     },

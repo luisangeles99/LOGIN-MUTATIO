@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jwt-simple');
 const moment = require('moment');
 const middleware = require('../middleware/middleware');
+const validation = require('../middleware/validation-middleware');
 
 
 router.get('/', async(req, res) => {
@@ -12,14 +13,23 @@ router.get('/', async(req, res) => {
     res.json(users);
 });
 
-router.post('/register', async (req, res) => {
+
+router.post('/register', validation.register ,async (req, res) => {
     console.log(req.body);
     req.body.password = bcrypt.hashSync(req.body.password, 10);
-    const result = await Users.insert(req.body);
-    res.json(result);
+    Users.insert(req.body).then(function(){
+        res.send({
+            Success: 'Usuario creado con éxito' + req.body.correo
+        })
+    }).catch(function(err){
+        res.status(400).send({
+            Error: 'Usuario no se ha registrado',
+            Tipo: err.message
+        });
+    })
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', validation.login ,async (req, res) => {
     const user = await Users.getByEmail(req.body.correo)
     if(user === undefined) {
         res.json({
@@ -32,9 +42,9 @@ router.post('/login', async (req, res) => {
                 error: 'Error, correo o contraseña incorrectos.'
             });
         } else {
-            
+            var token = createToken(user)
             res.json({
-                succesfull: createToken(user),
+                succesfull: token,
                 done: 'Login correct.'
             });
         }
