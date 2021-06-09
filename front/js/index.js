@@ -1,13 +1,70 @@
-// Validación en front
+//Mensajes de error registro
+const errores = {
+  nombre: "El campo nombre  no puede estar vacío",
+  apellido: "El apellido no puede estar vacío",
+  casa: "Numero de casa debe ser un número entero entre 1 y 1000",
+  correo: "Verifica el formato del correo introducido",
+  password: "La contraseña no puede estar vacía" 
+}
+
+//Mensajes de error login
+const erroresLogin = {
+  correo: "El correo no puede estar vacío",
+  password: "La contraseña no puede estar vacía"
+}
 
 
 
+/*********DISPLAY ERRORES**********/
 
+//errores registro
+function displayRegisterErrors(errors) {
+  cleanErrorsRegister();
+  Object.keys(errors).forEach(function(key) {
+    var errorSpan = document.getElementById(key+'Error');
+    document.getElementById(key+'Error').innerHTML = errores[key];
+    errorSpan.classList.remove('hidden');
+  });
+}
+
+function errorUserExists(error) {
+  cleanErrorsRegister();
+  var errorSpan = document.getElementById('errorGeneralLogin');
+  errorSpan.innerHTML = error['Tipo'];
+  errorSpan.classList.remove('hidden');
+}
+
+function cleanErrorsRegister() {
+  Object.keys(errores).forEach(function(key){
+    var errorSpan = document.getElementById(key+'Error');
+    errorSpan.classList.add('hidden');
+  });
+  errorSpan = document.getElementById('errorGeneralLogin');
+  errorSpan.innerHTML = '';
+  errorSpan.classList.add('hidden');
+}
+
+//errores login
+function displayLoginErrors(errors) {
+  cleanErrorsLogin();
+  Object.keys(errors).forEach(function(key) {
+    var errorSpan = document.getElementById(key+'ErrorLogin');
+    document.getElementById(key+'ErrorLogin').innerHTML = erroresLogin[key];
+    errorSpan.classList.remove('hidden');
+  });
+}
+
+function cleanErrorsLogin(){
+  Object.keys(erroresLogin).forEach(function(key){
+    var errorSpan = document.getElementById(key+'ErrorLogin');
+    errorSpan.classList.add('hidden');
+  });
+}
+
+
+/*********REGISTRO Y LOGIN API**********/
 //registro
-
 $('#registerbtn').on('click', function(){
-
-  return
 
   let nombre = $('#nombre').val()
   let apellido = $('#apellido').val()
@@ -33,22 +90,29 @@ $('#registerbtn').on('click', function(){
     method: 'POST',
     dataType: 'json',
     data: json_to_send,
-    success: function(data){
-      alert("Usuario creado con exito");
-      console.log('success: '+ data);
-      window.setTimeout(function(){
-        // Move to a new location or you can do something else
-        window.location.href = './index.html';
-    }, 5000);
+    success: function(ans){
+      cleanErrorsRegister();
+      console.log('success: '+ ans);
+      alert("Usuario creado con exito!");
+      window.setTimeout(function () {
+        location.href = './index.html';
+    }, 1000);
     },
     error: function(error_msg) {
-      console.log(error_msg.responseJSON['Error'])
-      alert((error_msg.responseJSON['Error']));
+      cleanErrorsRegister();
+      console.log(error_msg['responseText']);
+      if("data" in error_msg['responseJSON']) {
+        displayRegisterErrors(error_msg['responseJSON'].data.errors);
+      }
+      else if("Error" in error_msg['responseJSON']){
+        errorUserExists(error_msg['responseJSON']);
+      }
+      
     }
   });
 });
 
-/*
+
 //login
 $('#loginbtn').on('click', function(){
   let email = $('#email_log').val()
@@ -70,18 +134,27 @@ $('#loginbtn').on('click', function(){
     dataType: 'json',
     data: json_to_send,
     success: function(data){
+      cleanErrorsLogin(); 
       // guardar token en localstorage o cookie
-      localStorage.setItem('token', data.token)
+      //localStorage.setItem('token', data.token)
       alert("Sesion Iniciada")
       window.location = './home.html'
     },
     error: function(error_msg) {
-      alert((error_msg["responseText"]))
+      cleanErrorsLogin(); 
+      console.log((error_msg));
+      if("error" in error_msg['responseJSON']){
+        alert("El correo y/o contraseña son incorrectos.");
+      }
+      else {
+        displayLoginErrors(error_msg['responseJSON'].data.errors);
+      }
     }
   })
-})
-*/
+});
 
+
+/*********FUNCIONALIDAD FORM**********/
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
   
   var $this = $(this),
@@ -108,7 +181,6 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 		    label.addClass('highlight');
 			}
     }
-
 });
 
 $('.tab a').on('click', function (e) {

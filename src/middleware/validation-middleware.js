@@ -6,7 +6,7 @@ const register = (req, res, next) => {
         "apellido":"required|string",
         "correo":"required|email",
         "password":"required|string",
-        "casa":"required|min:1|max:3|integer"
+        "casa":"required|min:1|max:1000|integer"
     }
     validator(req.body, validationRule, {}, (err, status) => {
         if (!status) {

@@ -14,12 +14,12 @@ router.get('/', async(req, res) => {
 });
 
 
-router.post('/register', validation.register ,async (req, res) => {
-    console.log(req.body);
+router.post('/register', validation.register , (req, res) => {
+    console.log('Correo para registro: ' + req.body.correo);
     req.body.password = bcrypt.hashSync(req.body.password, 10);
     Users.insert(req.body).then(function(){
         res.send({
-            Success: 'Usuario creado con éxito' + req.body.correo
+            success: 'Usuario creado con éxito ' + req.body.correo
         })
     }).catch(function(err){
         res.status(400).send({
@@ -32,19 +32,20 @@ router.post('/register', validation.register ,async (req, res) => {
 router.post('/login', validation.login ,async (req, res) => {
     const user = await Users.getByEmail(req.body.correo)
     if(user === undefined) {
-        res.json({
+        res.status(404).send({
             error: 'Error, correo o contraseña incorrectos.'
         })
     } else {
         const equals = bcrypt.compareSync(req.body.password, user.password);
         if(!equals) {
-            res.json({
+            res.status(404).send({
                 error: 'Error, correo o contraseña incorrectos.'
             });
         } else {
             var token = createToken(user)
-            res.json({
-                succesfull: token,
+            res.send({
+                succesfull: true,
+                token: token,
                 done: 'Login correct.'
             });
         }

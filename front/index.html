@@ -6,7 +6,6 @@
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
       <link rel="stylesheet" href="css/style.css">
-      <link rel="stylesheet" href="css/style2.css">
       <link rel="stylesheet" href="css/component.css">
       <link rel="stylesheet" href="css/demo.css">
       <link rel="stylesheet" href="css/normalize.css">
@@ -36,6 +35,7 @@
               Nombre<span class="req">*</span>
             </label>
             <input type="text" id="nombre" required autocomplete="on" />
+            <span class="error hidden" id="nombreError" ></span>
           </div>
       
           <div class="field-wrap">
@@ -43,6 +43,7 @@
               Apellido<span class="req">*</span>
             </label>
             <input type="text" id="apellido" required autocomplete="on"/>
+            <span class="error hidden" id="apellidoError"></span>
           </div>
           
 
@@ -51,6 +52,7 @@
               Número de casa<span class="req">*</span>
             </label>
             <input type="number" id="numCasa" required autocomplete="on"/>
+            <span class="error hidden" id="casaError"></span>
           </div>
         
 
@@ -59,6 +61,7 @@
             Correo electrónico<span class="req">*</span>
             </label>
             <input type="email" id="email" required autocomplete="on"/>
+            <span class="error hidden" id="correoError"></span>
           </div>
           
           <div class="field-wrap">
@@ -66,9 +69,10 @@
               Contraseña<span class="req">*</span>
             </label>
             <input type="password" id="password" required = "on" autocomplete="off"/>
+            <span class="error hidden" id="passwordError"></span>
           </div>
-          
-          <button type="submit" id="registerbtn" class="button button-block">Registrarse</button>
+          <span class="error hidden" id="errorGeneralLogin"></span>
+          <button type="button" id="registerbtn" class="button button-block">Registrarse</button>
           
           </form>
 
@@ -84,6 +88,7 @@
               Correo electrónico<span class="req">*</span>
             </label>
             <input type="email" id="email_log" required autocomplete="on"/>
+            <span class="error hidden" id="correoErrorLogin"></span>
           </div>
           
           <div class="field-wrap">
@@ -91,11 +96,12 @@
               Contraseña<span class="req">*</span>
             </label>
             <input type="password" id = "pass_log" required="on" autocomplete="off"/>
+            <span class="error hidden" id="passwordErrorLogin"></span>
           </div>
           
-
+          <span class="error hidden" id="errorGeneralLogin"></span>
           
-          <button type="submit" id="loginbtn" class="button button-block">Log In</button>
+          <button type="button" id="loginbtn" class="button button-block">Iniciar sesión</button>
           
           </form>
 
